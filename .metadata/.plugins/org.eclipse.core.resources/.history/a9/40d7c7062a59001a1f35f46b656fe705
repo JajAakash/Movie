@@ -1,0 +1,15 @@
+package com.movietrailer.movietrailer.dto;
+
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class YoutubeData {
+	
+	private String kind;
+	private String etag;
+	public List<YoutubeItem> item;
+	
+		
+}

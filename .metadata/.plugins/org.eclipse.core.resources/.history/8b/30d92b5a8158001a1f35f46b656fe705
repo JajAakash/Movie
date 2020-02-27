@@ -1,0 +1,41 @@
+package com.movietrailer.movietrailer.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.movietrailer.movietrailer.dto.Quote;
+import com.movietrailer.movietrailer.service.IMDBYouService;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@RestController
+@CrossOrigin
+public class IMYouApi {
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired
+	IMDBYouService imdbYouService;
+	
+	//@GetMapping("/movieDetails")
+	@RequestMapping(value="/movieDetails",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody List<IMDBYou> getMovie(@PathVariable String keyword){
+	public @ResponseBody Quote getMovie(){
+		System.out.println("===========================");
+		logger.info(" request for Movie {}");
+		//List<IMDBYou> IMDBYoutubeData= imdbYouService.ImdbYoutubeData();
+		Quote IMDBYoutubeData= imdbYouService.ImdbYoutubeData();
+		return IMDBYoutubeData;
+	}
+	
+	
+}

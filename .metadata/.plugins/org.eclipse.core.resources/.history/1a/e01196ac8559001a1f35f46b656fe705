@@ -1,0 +1,89 @@
+package com.movietrailer.movietrailer.service;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.tomcat.util.json.JSONParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jackson.JsonObjectDeserializer;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+
+import com.movietrailer.movietrailer.dto.IMDBYou;
+import com.movietrailer.movietrailer.dto.Item;
+import com.movietrailer.movietrailer.dto.YoutubeData;
+
+
+@Service
+public class IMDBYouService {
+	
+	@Autowired
+	RestTemplate template;
+	
+	
+	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+		@Bean
+		public RestTemplate restTemplate(RestTemplateBuilder builder) {
+			return builder.build();
+		}
+	
+		
+		
+	public List<Object> ImdbYoutubeData (String movieName) {
+		
+		logger.info(" request for Movie {} using keyword="+ movieName);
+		String imdbURL="http://www.omdbapi.com/?t="+movieName+"&apikey=8ef8f30f";
+		IMDBYou imdbData=new RestTemplate().getForObject(imdbURL, IMDBYou.class);
+		
+		List<Object> movieDetails= new ArrayList<>();
+		movieDetails.add(imdbData);
+		Map<String, Object> i=YoutubeData(imdbData.getTitle());
+		
+	
+		
+		movieDetails.add(i);
+		
+		
+		return movieDetails;
+	}
+	
+	public Map<String, Object> YoutubeData (String movieName) {
+	//public Quote data() {
+		String youtubeUrl="https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&q="+movieName+"%20songs&key=AIzaSyCIH1RqAzT31kir2Lp4UdGD4PWP6mouLRw";
+		
+		List<Object> items= new ArrayList<>();
+		Map<String, Object> youtubeData = (Map<String, Object>) template.getForObject(youtubeUrl,Object.class);
+//	   System.out.println(items);
+	    for (Map.Entry<String,Object> entry : youtubeData.entrySet()) {
+	    	if(entry.getKey().equals("items")) {
+	    		items=(List<Object>) entry.getValue();
+	    		//System.out.println(items);
+	    	}}
+	    	
+	    System.out.println("++++++++++++++++++++++++"+items);
+//	    
+	    for(Object i : items) {
+	    	System.out.println("===5555=="+i);
+	    }
+	    
+	    
+//            System.out.println("Key = " + entry.getKey() + 
+//                             ", Value = " + entry.getValue()); 
+     
+		
+		return youtubeData;
+		//return new RestTemplate().getForObject(url, YoutubeData.class);
+	}
+}
+

@@ -1,0 +1,15 @@
+package com.movietrailer.movietrailer;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication(scanBasePackages={
+		"com.movietrailer.something"})
+public class MovietrailerApplication {
+
+	public static void main(String[] args) {
+		System.out.println("HERE COMING");
+		SpringApplication.run(MovietrailerApplication.class, args);
+	}
+
+}

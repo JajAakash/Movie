@@ -1,0 +1,57 @@
+package com.movietrailer.movietrailer.service;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.movietrailer.movietrailer.dto.IMDBYou;
+import com.movietrailer.movietrailer.dto.Quote;
+
+
+@Service
+public class IMDBYouService {
+	
+	@Autowired
+	RestTemplate template;
+	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+		@Bean
+		public RestTemplate restTemplate(RestTemplateBuilder builder) {
+			return builder.build();
+		}
+	
+//	@Bean
+//	public RestTemplate restTemplate() {
+//	    return new RestTemplate();
+//	}
+//	
+	public IMDBYou ImdbYoutubeData () {
+		//public List<Quote> ImdbYoutubeData () {
+		
+//		@SuppressWarnings("unchecked")
+//		List<IMDBYou> ImdbYoutubeData = (List<IMDBYou>) restTemplate.getForObject(
+//					"https://gturnquist-quoters.cfapps.io/api/random", IMDBYou.class);
+//		
+//		logger.info(" respnse for MovieData {}", ImdbYoutubeData);
+//			
+//			return ImdbYoutubeData;
+//	
+//	}
+	
+//		List<Quote> ImdbYoutubeData  = (List<Quote>) template.getForObject("https://gturnquist-quoters.cfapps.io/api/random", Quote.class);
+//		logger.info(" respnse for MovieData {}", ImdbYoutubeData);
+//		return ImdbYoutubeData;
+		System.out.println("==========HERE IN SERVICE==============");
+		
+		return new RestTemplate().getForObject("http://www.omdbapi.com/?t=hera pheri&apikey=8ef8f30f", IMDBYou.class);
+	}
+}

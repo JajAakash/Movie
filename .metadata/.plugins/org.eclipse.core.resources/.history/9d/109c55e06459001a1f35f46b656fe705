@@ -1,0 +1,95 @@
+package com.movietrailer.movietrailer.service;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.tomcat.util.json.JSONParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jackson.JsonObjectDeserializer;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+
+import com.movietrailer.movietrailer.dto.IMDBYou;
+import com.movietrailer.movietrailer.dto.Item;
+import com.movietrailer.movietrailer.dto.YoutubeData;
+
+
+@Service
+public class IMDBYouService {
+	
+	@Autowired
+	RestTemplate template;
+	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+		@Bean
+		public RestTemplate restTemplate(RestTemplateBuilder builder) {
+			return builder.build();
+		}
+	
+		List<Object> movieDetails= new ArrayList<>();
+		
+	public List<Object> ImdbYoutubeData (String movieName) {
+		
+		logger.info(" request for Movie {} using keyword="+ movieName);
+		String imdbURL="http://www.omdbapi.com/?t="+movieName+"&apikey=8ef8f30f";
+		IMDBYou imdbData=new RestTemplate().getForObject(imdbURL, IMDBYou.class);
+		
+		movieDetails.add(imdbData);
+		YoutubeData i=YoutubeData();
+		
+		
+		//Quote a=data();
+//		for (YoutubeItem j : i.getItem()) {
+//			System.out.println(j.getKind());
+//			
+//		}
+				
+		System.out.println(i.getRegionCode()+i.getPageInfo().getTotalResults()+i.getItem());
+		movieDetails.add(i);
+		
+		List<Item> employees = i.getItem();
+		System.out.println(employees);
+		return movieDetails;
+	}
+	
+	public YoutubeData YoutubeData () {
+	//public Quote data() {
+		String url="https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&q=kedarnath%20songs&key=AIzaSyCIH1RqAzT31kir2Lp4UdGD4PWP6mouLRw";
+		System.out.println("==========HERE IN SERVICE==============");
+		//RestTemplate restTemplate = new RestTemplate();
+		//Response response =restTemplate.getForObject(url, responseType)
+		//Quote a= new RestTemplate().getForObject("https://gturnquist-quoters.cfapps.io/api/random", Quote.class);
+		//return a;
+		//System.out.println("=+++++++++++++"+a.getType());
+		//System.out.println(template.getForObject(url,YoutubeData.class));
+		
+		
+		
+		
+		
+//		Object[] forNow = template.getForObject(url, YoutubeData[].class);
+//	    List<Object> searchList = Arrays.asList(forNow);
+//	    System.out.println(searchList.get(0));
+		
+		
+		Map<String, Object> youtubeData = (Map<String, Object>) template.getForObject(url,Object.class);
+	    System.out.println(youtubeData);
+	    for (Map.Entry<String,Object> entry : youtubeData.entrySet())  
+            System.out.println("Key = " + entry.getKey() + 
+                             ", Value = " + entry.getValue()); 
+     
+		
+		return template.getForObject(url,YoutubeData.class);
+		//return new RestTemplate().getForObject(url, YoutubeData.class);
+	}
+}

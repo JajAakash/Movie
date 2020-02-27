@@ -1,0 +1,13 @@
+package com.movietrailer.movietrailer.controller;
+
+public class IMDBYou {
+	private String Title;
+	private String Released;
+	private String Director;
+	private String Actors;
+	private String Poster;
+//	private String Title;
+//	private String Title;
+//	private String Title;
+//	
+}

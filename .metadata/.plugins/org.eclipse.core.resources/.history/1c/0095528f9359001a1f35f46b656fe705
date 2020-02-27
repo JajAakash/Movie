@@ -1,0 +1,21 @@
+package com.movietrailer.movietrailer.dto;
+
+public class Id {
+	private String kind;
+	private String videoId;
+	
+	public String getKind() {
+		System.out.println("0000000055555555555555000000000000000000");
+		return kind;
+	}
+	public void setKind(String kind) {
+		System.out.println("00000000000000000000000000");
+		this.kind = kind;
+	}
+	public String getVideoId() {
+		return videoId;
+	}
+	public void setVideoId(String videoId) {
+		this.videoId = videoId;
+	}
+}

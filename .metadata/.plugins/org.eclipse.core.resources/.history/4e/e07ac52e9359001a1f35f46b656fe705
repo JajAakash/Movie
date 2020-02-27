@@ -1,0 +1,5 @@
+package com.movietrailer.movietrailer.service;
+
+public class HandleException {
+
+}

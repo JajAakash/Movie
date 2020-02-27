@@ -1,0 +1,48 @@
+package com.movietrailer.movietrailer.service;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+
+import com.movietrailer.movietrailer.dto.IMDBYou;
+import com.movietrailer.movietrailer.dto.Quote;
+
+
+@Service
+public class IMDBYouService {
+	
+	@Autowired
+	RestTemplate template;
+	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+		@Bean
+		public RestTemplate restTemplate(RestTemplateBuilder builder) {
+			return builder.build();
+		}
+	
+	public IMDBYou ImdbYoutubeData () {
+	
+		IMDBYou a=new RestTemplate().getForObject("https://gturnquist-quoters.cfapps.io/api/random", IMDBYou.class);
+		System.out.println();
+		return a;
+	}
+	
+	public IMDBYou YoutubeData () {
+		
+		System.out.println("==========HERE IN SERVICE==============");
+		
+		//IMDBYou a= new RestTemplate().getForObject("https://gturnquist-quoters.cfapps.io/api/random", IMDBYou.class);
+		//System.out.println("=+++++++++++++"+a.getType());
+		return new RestTemplate().getForObject("https://gturnquist-quoters.cfapps.io/api/random", IMDBYou.class);
+	}
+}

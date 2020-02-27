@@ -1,0 +1,11 @@
+package com.movietrailer.movietrailer.dto;
+
+import java.util.List;
+
+public class Item {
+	
+	private String kind;
+	private String etag;
+	public List<Item> item;
+	
+}
